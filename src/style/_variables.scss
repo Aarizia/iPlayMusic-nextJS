@@ -1,0 +1,31 @@
+// basic colors:
+$color-light: #fff;
+$color-dark: #111625;
+$color-dark-purple: #341931;
+
+// other colors:
+$blue-dark: #115793;
+$blue-medium: #00a1cb;
+$blue-light: #0abebe;
+$green-dark: #3a7634;
+$green-light: #5eb11c;
+$yellow: #f2bc06;
+$orange-light: #f18d05;
+$orange-dark: #e54028;
+$pink: #ff1168;
+
+//$gradient-vertical: linear-gradient(#ee0979, #ff6a00);
+//$gradient-horizontal: linear-gradient(to right, #ee0979, #ff6a00);
+$gradient-diagonal: linear-gradient(to bottom right, #ee0979, #ff6a00);
+
+$gradient-dark: linear-gradient(to bottom right, transparent, #111);
+$gradient-light-to-top: linear-gradient(to top, $color-light, transparent);
+$gradient-dark-purple-to-top: linear-gradient(to top, $color-dark-purple, transparent);
+
+
+$boxshadow-light: 0 0 10px #707070;
+$boxshadow-dark: 0 0 10px #000;
+
+// overlay: opacity (high opacity - less transparency)
+$pink-overlay: #ff116840; // 25%
+$light-overlay: #ffffff40; // 25%

@@ -1,0 +1,87 @@
+@use '../../style/variables';
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        font-size: 2rem;
+    }
+}
+
+@keyframes grow {
+    to {
+        height: 13.5rem;
+    }
+}
+
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+/*     height: 100vh;
+    width: 100%; */
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    
+    &__hidden {
+        position: fixed;
+        opacity: 0;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+/*         height: 100vh;
+        width: 100%; */
+        z-index: -10;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        transition: all 0.5s;
+    }
+
+    &__heading {
+        font-weight: 700;
+        font-size: 0.1rem;
+        opacity: 0;
+        animation: fadeIn 1s ease-in forwards;
+    }
+}
+
+body.darkmode {
+    .splash-screen {
+        background-color: variables.$color-dark-purple;
+        
+        &__heading {
+            color: variables.$color-light;
+        }
+        
+            &__image-dark {
+                height: 6.75rem;
+                aspect-ratio: 0.92;
+                animation: grow 1s ease-in forwards;
+            }
+    }
+}
+
+body.lightmode {
+    .splash-screen {
+        background-color: variables.$color-light;
+        
+        &__heading {
+            color: variables.$color-dark;
+        }
+
+        &__image-light {
+            height: 6.75rem;
+            aspect-ratio: 0.92;
+            animation: grow 1s ease-in forwards;
+        }
+    }
+}

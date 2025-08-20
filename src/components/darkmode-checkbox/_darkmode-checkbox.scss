@@ -1,0 +1,36 @@
+@use '../../style/variables';
+
+.darkmode-checkbox__label {
+    width: 1.5rem;
+    aspect-ratio: 1.8;
+    background: variables.$gradient-diagonal;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    transition: background-color 1s;
+    justify-self: right;
+}
+
+.darkmode-checkbox__circle {
+    height: 0.65rem;
+    aspect-ratio: 1;
+    background-color: variables.$color-light;
+    border-radius: 100%;
+    margin-inline-start: 2px;
+    transition: all 1s;
+}
+
+.darkmode-checkbox__label:has(.darkmode-checkbox__input:checked) {
+    background-color: variables.$color-light;
+    transition: transform 1s;
+    transition: background-color 1s;
+}
+
+.darkmode-checkbox__label:has(.darkmode-checkbox__input:checked) > .darkmode-checkbox__circle {
+    transform: translateX(0.6rem);
+    background-color: variables.$color-dark;
+}
+
+.darkmode-checkbox__input {
+    display: none;
+}

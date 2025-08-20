@@ -1,0 +1,45 @@
+@use '../../style/variables';
+
+.playlist {
+    padding: 0 1.7575rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: scroll;
+
+    &__title {
+        align-self: center;
+        //max-width: 9.6875rem;
+        font-size: 1.25rem;
+        font-weight: 700;
+        padding-block-end: 0.5rem;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    &__button {
+        width: 100%;
+        color: variables.$pink;
+        background-color: transparent;
+        border: 2px solid variables.$pink;
+        border-radius: 2rem;
+        font-size: 0.9375rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding-block: 1rem;
+    }
+}
+    
+/*     &__button::before {
+        position: absolute;
+            top: -1.0915rem;
+            left: -1.7575rem;
+        content: '';
+        height: 1rem;
+        width: 100vw;
+        display: block;
+    } */

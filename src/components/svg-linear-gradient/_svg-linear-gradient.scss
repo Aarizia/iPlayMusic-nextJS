@@ -1,0 +1,9 @@
+@use '../../style/variables';
+
+.gradient-stop-color-left {
+    stop-color: variables.$pink;
+}
+
+.gradient-stop-color-right {
+    stop-color: variables.$orange-light;
+}

@@ -1,0 +1,50 @@
+@use '../../../style/variables';
+
+.login {
+    padding: 2.125rem 1.5625rem;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    font-size: 0.9375rem;
+
+    &__touch {
+        justify-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &__touch-icon-container {
+        width: 4.6875rem;
+        aspect-ratio: 1;
+        border-radius: 10rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__touch-icon {
+        font-size: 1.875rem;
+        color: variables.$color-light;
+    }
+}
+
+body.darkmode {
+    .login {
+
+        &__touch-icon-container {
+            background: variables.$light-overlay;
+        }
+    }
+    
+}
+
+body.lightmode {
+    .login {
+
+        &__touch-icon-container {
+            background-color: variables.$pink;
+        }
+    }
+}

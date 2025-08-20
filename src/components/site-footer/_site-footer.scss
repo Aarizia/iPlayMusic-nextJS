@@ -1,0 +1,38 @@
+@use '../../style/variables';
+
+footer {
+    padding: 0.625rem 2rem;
+    
+    .menu__list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu__item {
+        justify-self: center;
+    }
+
+/*     .menu__button {
+        border: none;
+        font-size: 1.25rem;
+        display: block;
+        height: 1.25rem;
+        width: 1.25rem;
+        background-color: transparent;
+    } */
+}
+
+body.darkmode {
+    footer {
+        background-color: variables.$color-dark;
+        box-shadow: variables.$boxshadow-dark;
+    }
+}
+
+body.lightmode {
+    footer {
+        background-color: variables.$color-light;
+        box-shadow: variables.$boxshadow-light;
+    }
+}

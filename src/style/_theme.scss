@@ -1,0 +1,11 @@
+@use './variables';
+
+.lightmode {
+    color: variables.$color-dark;
+    background-color: variables.$color-light;
+}
+
+.darkmode {
+    color: variables.$color-light;
+    background-color: variables.$color-dark-purple;
+}

@@ -1,0 +1,40 @@
+@use '../../../style/variables';
+
+.menu__icon {
+    font-size: 1.25rem;
+}
+
+.not-active {
+    font-size: 1.25rem;
+    display: block;
+    height: 1.25rem;
+    width: 1.25rem;
+}
+
+.active {
+    font-size: 1.5625rem;
+    background: variables.$gradient-diagonal;
+    border-radius: 10rem;
+    //color: variables.$color-light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.8125rem;
+    height: 2.8125rem;
+    text-align: center;
+    line-height: 3rem;
+}
+
+body.darkmode {
+
+    .active {
+        color: variables.$color-dark;
+    }
+}
+
+body.lightmode {
+
+    .active {
+        color: variables.$color-light;
+    }
+}

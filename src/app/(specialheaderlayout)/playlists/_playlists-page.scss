@@ -1,0 +1,10 @@
+.playlists {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-block-start: 1.0225rem;
+    
+    &__heading {
+        padding-inline: 1.7575rem;
+    }
+}

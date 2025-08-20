@@ -1,0 +1,93 @@
+@use './variables';
+
+.wrapper {
+
+    display: grid;
+    grid-template-areas: 
+        'header'
+        'main'
+        'footer'
+    ;
+    height: 100vh;
+    grid-template-rows: auto 1fr auto;
+    overflow: hidden;
+        
+    header {
+        grid-area: header;
+    }
+        
+    main {
+        grid-area: main;
+        overflow: hidden scroll;
+        scroll-behavior: smooth;
+    }
+        
+    footer {
+        grid-area: footer;
+    }
+
+    h1 {
+        font-size: 0.9375rem;
+        font-weight: 300;
+        text-transform: uppercase;
+
+        &.login__heading {
+            font-size: 2.25rem;
+            text-transform: capitalize;
+            font-weight: 700;
+        }
+
+        &.splash-screen__heading {
+            font-size: 0.1rem;
+            text-transform: none;
+            font-weight: 700;
+            opacity: 0;
+            /* animation: fadeIn 1s ease-in forwards; */
+        }
+
+        &.walkthrough__heading {
+            font-size: 1.5rem;
+            text-transform: capitalize;
+            font-weight: 700;
+            text-align: center;
+        }
+    }
+
+    h2 {
+        font-size: 2rem;
+        background: variables.$gradient-diagonal;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+        
+        &.light-text {
+            background: initial;
+            background-clip: initial;
+            -webkit-text-fill-color: initial;
+        }
+        
+        &.font-size-small {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        &.non-gradient {
+            background: initial;
+            background-clip: initial;
+            -webkit-text-fill-color: initial;
+        }
+    }
+
+    .line-break {
+        display: block;
+    }
+
+    .light-text {
+        color: variables.$color-light;
+    }
+
+    @media (min-width: 23.4375rem) {
+        width: 23.4375rem;
+        margin: 0 auto;
+    }
+}
