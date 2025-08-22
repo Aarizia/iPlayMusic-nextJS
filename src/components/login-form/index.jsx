@@ -5,7 +5,6 @@ import { useActionState } from "react"
 import HandleLoginForm from "./handle-login-form";
 import { PiUserCircleFill } from "react-icons/pi";
 import { IoKey } from "react-icons/io5";
-import { IoIosFingerPrint } from "react-icons/io";
 
 export default function LoginForm() {
 
@@ -32,12 +31,6 @@ export default function LoginForm() {
                 </div>
                 <button type="submit" className={`login__button disabled:bg-gray-400`} disabled={isPending}>Log in</button>
             </form>
-{/*                     <div className="login__touch">
-                <div className="login__touch-icon-container">
-                    <IoIosFingerPrint className="login__touch-icon" />
-                </div>
-                <p>One-Touch Login</p>
-            </div> */}
         </>
     )
 }

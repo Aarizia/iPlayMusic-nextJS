@@ -15,7 +15,7 @@ export default function SplashScreen() {
     useEffect(() => {
 
         setTimeout( () => {
-            console.log('redirected');
+            //console.log('redirected');
             router.push('/');
         }, 2000);
     }, []);

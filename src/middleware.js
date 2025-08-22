@@ -111,5 +111,5 @@ export const config = {
     // matcher alle paths:
     //matcher: ['/:path*']
     // NB: problem: den blocker også node_modules, stylesheets mv. så skriv de faktiske sider i stedet:
-    matcher: ['/', '/albums', '/playlists', '/categories', '/player/:path*', '/album']
+    matcher: ['/', '/albums', '/playlists', '/categories', '/player/:path*', '/album/:path*']
 }

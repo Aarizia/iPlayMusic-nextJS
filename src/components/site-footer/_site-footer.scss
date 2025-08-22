@@ -13,6 +13,31 @@ footer {
         justify-self: center;
     }
 
+    .menu__icon {
+        font-size: 1.25rem;
+    }
+    
+    .not-active {
+        font-size: 1.25rem;
+        display: block;
+        height: 1.25rem;
+        width: 1.25rem;
+    }
+    
+    .active {
+        font-size: 1.5625rem;
+        background: variables.$gradient-diagonal;
+        border-radius: 10rem;
+        //color: variables.$color-light;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2.8125rem;
+        height: 2.8125rem;
+        text-align: center;
+        line-height: 3rem;
+    }
+    
 /*     .menu__button {
         border: none;
         font-size: 1.25rem;
@@ -27,6 +52,10 @@ body.darkmode {
     footer {
         background-color: variables.$color-dark;
         box-shadow: variables.$boxshadow-dark;
+
+        .active {
+            color: variables.$color-dark;
+        }
     }
 }
 
@@ -34,5 +63,10 @@ body.lightmode {
     footer {
         background-color: variables.$color-light;
         box-shadow: variables.$boxshadow-light;
+
+        .active {
+            color: variables.$color-light;
+        }
     }
 }
+

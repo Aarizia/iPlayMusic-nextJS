@@ -1,8 +1,8 @@
 import "./globals.css";
 import "../style/main.scss";
 import Theme from "@/providers/Theme";
-import PlayerEksempel from "@/components/players/player-eks";
 import PlayerProviderEksempel from "@/providers/PlayerProviderEks";
+import PlayerEksempel from "@/components/player";
 
 /* const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -1,6 +1,5 @@
 import './_albums-page.scss';
 import Link from 'next/link';
-import PlayerSmall from '@/components/players/player-small';
 import NewReleasesAlbumCard from '@/components/cards/new-releases-album-card';
 import { getNewAlbumReleases } from '@/utility/getSpotifyData';
 import Image from 'next/image';
@@ -13,11 +12,13 @@ export default async function AlbumsPage() {
 
     const data = await getNewAlbumReleases();
 
-    return (
-        <>
-        {/* {console.log(data)} */}
+    if (!data) {
+        notFound();
+    }
+
+    return data ? (
         <main className="albums">
-            <h2 className='albums__title'>All Albums</h2>
+            {/* <h2 className='albums__title'>All Albums</h2> */}
             <section className='albums-featured'>
                 <h3 className='albums__heading'>Featured Albums</h3>
                 <Link href={'/'} className='albums__link'>View All</Link>
@@ -50,8 +51,6 @@ export default async function AlbumsPage() {
                     })}
                 </ul>
             </section>
-            <PlayerSmall />
         </main>
-                    </>
-    )
+    ) : null;
 }

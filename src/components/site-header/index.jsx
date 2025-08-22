@@ -7,7 +7,7 @@ import './site-header.scss';
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-export default function SiteHeader({ backgroundImage, isPlayer = false }) {
+export default function SiteHeader({ backgroundImage, isPlayer = false, dispatch = function() {} }) {
 
     const pathname = usePathname();
     const router = useRouter();
@@ -51,7 +51,7 @@ export default function SiteHeader({ backgroundImage, isPlayer = false }) {
         <header className={backgroundImage ? 'light-text' : ''}>
             {isPlayer ? 
                 <button className="header__button">
-                    <IoChevronDown className="header__icon" onClick={() => router.back()} />
+                    <IoChevronDown className="header__icon" onClick={() => dispatch({ type: 'setPlayerSmall' })} />
                 </button>
             :
                 <button className="header__button" onClick={() => router.back()}>

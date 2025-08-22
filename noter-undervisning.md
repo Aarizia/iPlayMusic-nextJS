@@ -195,4 +195,185 @@ lav ikke onclick på f.eks. articles, så får du problemer ift. skærmlæsere m
 ------------------------------------------------------------------------------------------------------------------------------------------
 onsdag 200825:
 
-lave player fortsat
+fejlfinde på fetches:
+
+lav try catch på utility filen
+	hvad er response? ok?
+	pakke fetchet ind i try catch
+hvad skal der ske hvis det fejler?
+	throw new error -> error.js page
+	køre funktionen notFound() for at få fejl 404
+overvej hvilken situation jeg vil gøre hvad
+
+
+lave player fortsat:
+hvordan får vi afspillet musik?
+når vi klikker på et track og ser playeren skulle vi meget gerne i consollen have info om tracket
+vi mangler preview url'en, som er null
+vi har i stedet uri, som vi kan bruge til noget
+den består af trackets id bl.a. spotify:track:id
+vi kan bruge det sammen med iframe tagget til f.eks at vise video og lyd
+men hvad er iframe?
+en form for objekt som renderer en hjemmeside eller en applikation. vi kan vise en anden hjemmeside på vores hjemmeside
+et vindue hvor vi kan embedde en anden hjemmeside
+iframe: almindeligt html tag, virker i alle browsere. med iframe kan vi vise en anden http/https adresse på vores egen hjemmeside
+jeg har en ramme på min hjemmeside som viser en anden hjemmeside
+spotify har lavet en iframe player som har et api
+vi kan med vores app styre den player der er i iframen
+vi kan med vores app sætte iframe playeren ind på vores hjemmeside
+skjule den ved at sætte højde og bredde til 0 (skjule spotifys design)
+med vores knapper styre hvad iframe playeren skal gøre
+
+hvis vi kigger på developer spotify: find embeds
+klik på iframe api'et - dokumentation og hvordan vi kommer i gang med api'et
+vi skal bruge:
+tilføj iframe api scriptet til html-siden (vi arbejder dog i react, skal have script tagget ind)
+sætte div og script ind i player komponentet
+sætte window... i useEffect
+
+i safari: du skal klikke på iframen før du kan afspille den i safari (interagere med iframen med musen) - kun i safari, så test evt i en anden browser
+
+oprette controller objekt, som styrer iframe afspilleren
+NB: skriv det med useRef i stedet for getelementbyid fordi vi er i react
+
+nu er den fremme, vi skal skjule den og lave en anden afspiller, som kan styre den med vores knapper
+hvordan kan vi style på iframen ud fra det vi har nu?
+i options
+
+opgave: få afspiller til at starte og stoppe vha knap på playeren
+vi kan bruge dokumentationen, hvor der står en masse
+og også iframe api, hvor vi kan læse om metoder og events
+
+
+lave afspillerstregen:
+input type="range"
+max skal være duration og indtil nu skal være position
+
+opgave: tryk på range finder for at spole frem og tilbage i sangen
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+torsdag 210825:
+
+få input trackeren til at skifte tidspunkt i sangen når vi rykker på den
+hvordan gør vi?
+kigge i consollen: der er en fejl: vi har value prop på et formular felt uden en onchange handler
+det betyder at feltet vil være read only, vi kan ikke ændre i dets værdi
+ethvert input felt (og textarea) - hvis de ikke har en onChange men har en value, så er de read only (gælder kun i react)
+hvad skal vi gøre for at gøre den ikke read only? det står i error beskeden: den har allerede en value prop, så vi skal enten give den en onchange eller en readOnly prop (så bliver den read only og giver ikke en felj)
+hvad er onchange? en eventlistener, som skal have en funktion - skrive en changeHandler funktion
+når vi har puttet en onchange på med en funktion, så forsvinder fejlen
+
+hvad skal der ske i funktionen?
+vi prøver at ændre inputtets value
+hvad er inputtets value lige nu? et state
+vi prøver altså at ændre et state, her timing.position
+så vi bruger setTiming(() => {{duration: timing.data.duration, position: event.target.value}})
+kan man opdatere en property på objektet uden at skulle skrive alle properties igen?
+
+tage alle 3 states og pakke dem ind i en use reduce
+så kan vi opdatere et state ad gangen uden at skulle skrive alting igen. vi vender tilbage til det om lidt
+
+nu: når vi aktiverer changehandler funktionen, kører vi setTiming()
+men musikken ændrer sig ikke når vi ændrer value med onchange funktionen
+vi skal ændre på controlleren - kig i spotify documentationen
+metode: embedcontroller.seek - vi kan søge til et givent sted i lyden ved at give den antal sekunder fra start
+vores duration og position er i ms så vi skal regne om til sekunder
+controller.seek(event.target.value/1000);
+der kan måske komme nogle issues ud af bare at dividere med 1000 men vi kan lige prøve det
+og det virker. nu kan vi springe rundt i lyden
+
+fixe det ved at lave Math.floor på hele operationen, så vi ikke får et decimaltal. 
+andre problemer?
+ontouchend - når du stopper med at røre ved input så fyrer eventet
+onchange - eventet trickes hele tiden mens jeg rører ved inputtet
+i det hele taget med range skal vi håndtere sådan noget her, fordi det er hårdt for performance når eventet fyrer så mange gange
+
+NB: vi laver her en mobil app og ikke desktop, men onTouchEnd virker også i browseren
+
+men vi kan ikke rigtig skifte musik nu. hvad gør vi?
+bruge debounce? en debounce funktion er at du beder funktionen om at eksekvere, når brugeren har stoppet sin action i en vis antal tid.
+vi skal have en debounce funktion. den kan skrives hvor vi har lyst. brian sætter den uden for komponent funktionen
+hvordan ser den ud?
+function useDebounce({value, delay = 1000}) {
+	const [debounceValue, setDebounceValue] = useState(value);
+
+	useEffect(() => {
+
+		const timer = setTimeout(function() {
+
+			setDebounceValue(value)
+		}, delay);
+
+	}, [value, delay]);
+
+	return debounceValue;
+}
+
+delay er i ms
+lave den til const fordi så kan jeg fjerne timeoutet igen hvis jeg vil, med timer.cleartimeout() ish funktion (tjek mdn for stavning)
+
+useEffect som returnerer funktion: køres lige inden komponentet unmountes, vi rydder op - hvis vi unmounter komponentet, der bruger timeren inden timeren er blevet kørt, så fjernes timeren
+
+nu har vi et debounce.
+
+playeren, som skal bruge debounceren bliver vist og ligger i layoutet, så længe statet, der bestemmer om playeren skal vises eller ej er true. når den ændres til false, så bliver player component unmountet.
+
+
+bruge debounce funktionen i player komponentet:
+læs om useDebounce, evt i react docs
+
+NB: der er et touch problem i firefox browser, så test evt i en anden browser når du laver det her med input range og ontouchend
+
+problem: selvom jeg ændrer input value via input feltet, så ændrer position sig ikke
+
+løsning:
+vi kan fortælle programmet, at den skal stoppe med at lytte efter afspilleren men i stedet lave en lokal position den skal lytte på, når vi rører ved inputfeltet
+
+lige nu opdateres position af playback update funktionen
+
+vi har brug for at vide om brugeren er i gang med at flytte slideren og gøre noget ande thvis det er tilfældet
+laver 2 states til det
+
+vi har localposition state som vi kan bruge som value i inputfeltet
+
+skriv en masse states og useEffects og ændr i changeHandleren, og lav onTouchEnd back to onChange
+
+hvordan sørger vi for at conroller.seek udføres før setIsSeeking?
+vi kunne skrive vores egen promise funktion men det bliver for kompliceret - lyden virker men det visuelle driller lidt, prikken er lidt længe om at flytte sig til hvor jeg gerne vil have den til at være.
+
+nu har vi mange states. dem vil vi gerne have bedre styr på
+vi kan putte det ind i en useReduce, det gør vi efter pausen
+
+minimere forbruget af states
+vi skal bruge alle men kan vi lave bedre management?
+opdatere dele i stedet for at overskrive det hele
+vi bruger useReducer, react hook
+det ligner useState lidt
+vi har et state som indeholder alting og en reducer, der tager sig af hver ting vi skal have med at gøre
+kigge på eksempel
+vi har et sate, som bliver returneret og en dispatch funktion (ligesom setter funktionen i useState) - setter funktion i useState er også en dispatch funktion
+vi skal have en reducer funktion, som tager imod statet vi gerne vil opdate og den action, vi gerne vil lave
+action fortæller hvilken del af statet vi gerne vil opdatere eller hvad vi gerne vil gøre med statet
+vi kan opfinde vores egen reducer funktion
+
+det vi har brug for, er
+
+installer react developer tools i browseren og se fejlen der
+søg på react developer tools (i firefox)
+
+
+aflevering inden mandag. push til github og send brian et link
+
+
+fredag 220825:
+problem:
+vores afspiller hakker når vi skifter position i sangen via range inputtet
+
+vi kan fixe det ved at lave 2 nye actions i stedet for isSeeking: seekingTrue og seekingFalse
+
+det løser problemet
+
+et andet problem: en knap inde i knappen i track-card component - det kan du ikke i html
+hvordan løser vi det?

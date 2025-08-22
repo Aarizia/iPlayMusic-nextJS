@@ -9,13 +9,29 @@ import NewReleasesAlbumCard from "../cards/new-releases-album-card";
 
 export default function CategoriesDetails({ data }) {
 
-    const [currentCategory, setCurrentCategory] = useState([]);
+    const [currentCategory, setCurrentCategory] = useState({});
 
     async function clickHandler(name) {
 
+        if (!name) {
+            setCurrentCategory({
+                albums: {
+                    items: [{
+                        id: 1,
+                        name: 'Not found',
+                        /* images: [{
+                            url: null,
+                        }] */
+                    }]
+                }
+            });
+            return;
+        }
+        
         const response = await fetch(`api/search/${name}`);
         const categoryData = await response.json();
-        console.log(categoryData);
+
+        //console.log(categoryData);
         setCurrentCategory(categoryData);
     }
 
@@ -47,6 +63,7 @@ export default function CategoriesDetails({ data }) {
                     </details>
                 )
             })}
+            {/* <details onClick={() => clickHandler(null)}>{currentCategory?.albums?.items[0]?.name}</details> */}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import './_featured-page.scss';
 import FeaturedAlbumCard from "@/components/cards/featured-album-card";
-import PlayerSmall from "@/components/players/player-small";
 import { getNewAlbumReleases } from '@/utility/getSpotifyData';
+import { notFound } from 'next/navigation';
 
 export const metadata = {
     title: 'Featured'
@@ -35,13 +35,16 @@ export default async function FeaturedPage() {
     console.log(data); */
     const data = await getNewAlbumReleases();
 
-    return (
+    if (!data) {
+        notFound();
+    }
+
+    return data ? (
         <main className="featured">
-            <h2>Featured</h2>
+            {/* <h2>Featured</h2> */}
             <ul className="featured__list">
                 {data?.albums?.items.map(album => <FeaturedAlbumCard key={album.id} data={album} />)}
             </ul>
-            <PlayerSmall />
         </main>
-    )
+    ) : null;
 }

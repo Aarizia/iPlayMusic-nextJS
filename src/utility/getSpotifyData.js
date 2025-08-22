@@ -1,3 +1,4 @@
+import { redirect } from "next/dist/server/api-utils";
 import { cookies } from "next/headers";
 
 async function getSpotifyData( endpoint, searchParams = {}) {
@@ -14,15 +15,21 @@ async function getSpotifyData( endpoint, searchParams = {}) {
 
     const API_URL = new URL(endpoint, BASE_API_URL);
     Object.keys(searchParams).forEach(key => API_URL.searchParams.append(key, searchParams[key]));
-    const response = await fetch(API_URL, options);
 
-    //console.log(response);
+    try {
+        const response = await fetch(API_URL, options);
+        
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        } else {
+            console.log('response status: ', response);
+            return false;
+        }
 
-    if (response.ok) {
-        const data = await response.json();
-        return data;
-    } else {
-        return false;
+    } catch (error) {
+        console.error(error);
+        throw new Error;
     }
 }
 

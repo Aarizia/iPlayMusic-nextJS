@@ -8,7 +8,7 @@ import { PlaylistContext } from '@/providers/Playlist';
 
 export default function ImageSlider() {
 
-    const playlist = useContext(PlaylistContext);
+    const { playlists, setCurrentSlide, setCurrentPlaylistId, setCurrentPlaylistName } = useContext(PlaylistContext);
     const galleryRef = useRef();
     let timeOut = 0;
     
@@ -17,21 +17,21 @@ export default function ImageSlider() {
         clearTimeout(timeOut);
         timeOut = setTimeout(() => {
 
-            const numberOfSlides = playlist.currentUsersPlaylistsData.items.length;
+            const numberOfSlides = playlists.items.length;
             const sliderFullWidth = galleryRef.current?.scrollWidth;
             const currentScroll = galleryRef.current?.scrollLeft;
             const scrollPercentage = currentScroll/sliderFullWidth;
             const centeredSlide = Math.round(scrollPercentage * numberOfSlides);
-            playlist.setCurrentSlide(centeredSlide);
-            playlist.setCurrentPlaylistId(playlist.currentUsersPlaylistsData?.items[centeredSlide]?.id);
-            playlist.setCurrentPlaylistName(playlist.currentUsersPlaylistsData?.items[centeredSlide]?.name);
+            setCurrentSlide(centeredSlide);
+            setCurrentPlaylistId(playlists?.items[centeredSlide]?.id);
+            setCurrentPlaylistName(playlists?.items[centeredSlide]?.name);
         }, 1000);
     }
 
     return (
         <div className='playlists__gallery'>
             <ul ref={galleryRef} className='gallery' onScroll={scrollHandler}>
-                {playlist.currentUsersPlaylistsData?.items?.map(playlist => {
+                {playlists?.items?.map(playlist => {
                     return (
                         <li key={playlist.id} className='gallery__item scroll-scale'>
                             <Image 
