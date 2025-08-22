@@ -22,12 +22,12 @@ function useDebounce(value, delay = 300) {
 
 	useEffect(() => {
 
-		const timer = setTimeout(function() {
+		const timer = window.setTimeout(function() {
 
 			setDebounceValue(value);
 		}, delay);
 
-        return () => clearTimeout(timer);
+        return () => window.clearTimeout(timer);
 
 	}, [value, delay]);
 

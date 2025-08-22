@@ -10,7 +10,7 @@ export default function Theme({ children }) {
     const [currentTheme, setCurrentTheme] = useState('light');
     
     useEffect(() => {
-        const themeAsString = localStorage.getItem('theme') ?? 'light';
+        const themeAsString = window.localStorage.getItem('theme') ?? 'light';
         setCurrentTheme(themeAsString);
 
         // gem i localstorage

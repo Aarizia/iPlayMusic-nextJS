@@ -16,7 +16,7 @@ export default function FeaturedLoading() {
 
     return (
         <main className='featured'>
-            <h2>Featured</h2>
+            <h2>Loading</h2>
             <ul>
                 <SkeletonCard />
                 <SkeletonCard />
