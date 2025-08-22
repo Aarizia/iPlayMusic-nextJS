@@ -14,10 +14,14 @@ export default function SplashScreen() {
 
     useEffect(() => {
 
-        setTimeout( () => {
+        const timer = setTimeout( () => {
             //console.log('redirected');
             router.push('/');
         }, 2000);
+
+        return function() {
+            clearTimeout(timer);
+        }
     }, []);
 
     const theme = useContext(ThemeContext);
