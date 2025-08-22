@@ -8,7 +8,7 @@ export default async function middleware(request) {
 
     const {pathname} = request.nextUrl;
 
-    if (pathname.includes('/login') || pathname.includes('/api') || pathname.includes('/splash-screen')) {
+    if (pathname.includes('/login') || pathname.includes('/api') || pathname.includes('/splash')) {
         
         // når vi returnerer ingenting, så kører vores routing bare videre uden at blive redirected
         return;
@@ -78,7 +78,7 @@ export default async function middleware(request) {
     if (!request.cookies.has('iplaymusic_session_token')) {
 
         //const nextResponse = NextResponse.next();
-        const nextResponse = NextResponse.redirect(new URL('/splash-screen', request.url), {
+        const nextResponse = NextResponse.redirect(new URL('/splash', request.url), {
             // status 302: found (redirection response for at undgå at browseren springer redirectet over fordi den er vant til at der altid skal redirectes)
             status: 302,
         });
